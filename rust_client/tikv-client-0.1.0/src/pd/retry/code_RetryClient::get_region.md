@@ -1,4 +1,4 @@
-#1.get_region
+#1.RetryClient::get_region
 
 ```
 get_region
