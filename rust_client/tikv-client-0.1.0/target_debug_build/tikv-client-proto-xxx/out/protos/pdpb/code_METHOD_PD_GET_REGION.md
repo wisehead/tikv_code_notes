@@ -1,12 +1,5 @@
-#1.PdClient::get_region_async_opt
+#1. METHOD_PD_GET_REGION
 
-```
-PdClient::get_region_async_opt
---self.client.unary_call_async(&METHOD_PD_GET_REGION, req, opt)
-----//底层调用grpc内部库来调用METHOD_PD_GET_REGION
-```
-
-#2.METHOD_PD_GET_REGION
 
 ```rust
 //由pdpb.proto生成的GetRegin()函数生成
