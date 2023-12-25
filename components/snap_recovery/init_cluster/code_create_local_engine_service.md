@@ -12,4 +12,10 @@ create_local_engine_service
             .lite(true)
             .build();
 --let kv_db = match factory.create_shared_db(&config.storage.data_dir) 
+--if !config.raft_engine.enable {
+----raft_db = match new_engine_opt(&raft_path, raft_db_opts, raft_db_cf_opts)
+----let local_engines = LocalEngines::new(Engines::new(kv_db, raft_db));
+--else
+----let raft_db = RaftLogEngine::new(cfg, key_manager, None /* io_rate_limiter */).unwrap();
+----let local_engines = LocalEngines::new(Engines::new(kv_db, raft_db));
 ```
