@@ -29,5 +29,9 @@ TikvServer::init
                 cluster_id,
                 pd_client.clone(),
             );        
-        
+--let cfg_controller = TikvServerCore::init_config(config);
+--let background_worker = WorkerBuilder::new("background")
+            .thread_count(thread_count)
+            .create();        
+--let (router, system) = fsm::create_raft_batch_system(&config.raft_store, &resource_manager);
 ```
