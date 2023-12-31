@@ -7,5 +7,6 @@ TikvServer::init_server
             self.engines.as_ref().unwrap().engine.kv_engine().unwrap(),
             self.core.flow_info_receiver.take().unwrap(),
         )));
+--let mut gc_worker = self.init_gc_worker();
 --        
 ```
