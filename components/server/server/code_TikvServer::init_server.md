@@ -26,5 +26,10 @@ TikvServer::init_server
                     self.core.config.log_backup.clone(),
                 )),
             );
-
+----let region_read_progress = engines
+                .store_meta
+                .lock()
+                .unwrap()
+                .region_read_progress
+                .clone();
 ```
