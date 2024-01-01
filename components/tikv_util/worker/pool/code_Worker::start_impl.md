@@ -8,6 +8,7 @@ Worker::start_impl
                 match msg {
                     Msg::Task(task) => {
                         handle.inner.run(task);
+                        --Endpoint::run
                         counter.fetch_sub(1, Ordering::SeqCst);
                         metrics_pending_task_count.dec();
                     }
@@ -15,4 +16,10 @@ Worker::start_impl
                 }
             }
         });
+```
+
+#2.Endpoint::run
+```
+Endpoint::run
+--Endpoint::run_task
 ```
