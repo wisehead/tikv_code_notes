@@ -8,5 +8,11 @@ TikvServer::init_server
             self.core.flow_info_receiver.take().unwrap(),
         )));
 --let mut gc_worker = self.init_gc_worker();
---        
+...
+...
+-- // Start backup stream
+--let backup_stream_scheduler = if self.core.config.log_backup.enable {       
+  // Create backup stream.
+----let mut backup_stream_worker = Box::new(LazyWorker::new("backup-stream"));
+----let backup_stream_scheduler = backup_stream_worker.scheduler();
 ```
