@@ -18,5 +18,13 @@ TikvServer::init_server
     // Register backup-stream observer.
 ----let backup_stream_ob = BackupStreamObserver::new(backup_stream_scheduler.clone());
 ----backup_stream_ob.register_to(self.coprocessor_host.as_mut().unwrap());
-----
+----// Register config manager.
+----cfg_controller.register(
+                tikv::config::Module::BackupStream,
+                Box::new(BackupStreamConfigManager::new(
+                    backup_stream_worker.scheduler(),
+                    self.core.config.log_backup.clone(),
+                )),
+            );
+
 ```
