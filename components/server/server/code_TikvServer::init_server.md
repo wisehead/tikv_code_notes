@@ -32,4 +32,27 @@ TikvServer::init_server
                 .unwrap()
                 .region_read_progress
                 .clone();
+----let leadership_resolver = LeadershipResolver::new(
+                node.id(),
+                self.pd_client.clone(),
+                self.env.clone(),
+                self.security_mgr.clone(),
+                region_read_progress,
+                Duration::from_secs(60),
+            );
+----let backup_stream_endpoint = backup_stream::Endpoint::new(
+                node.id(),
+                PdStore::new(Checked::new(Sourced::new(
+                    Arc::clone(&self.pd_client),
+                    pd_client::meta_storage::Source::LogBackup,
+                ))),
+                self.core.config.log_backup.clone(),
+                backup_stream_scheduler.clone(),
+                backup_stream_ob,
+                self.region_info_accessor.clone(),
+                CdcRaftRouter(self.router.clone()),
+                self.pd_client.clone(),
+                self.concurrency_manager.clone(),
+                BackupStreamResolver::V1(leadership_resolver),
+            );            
 ```
