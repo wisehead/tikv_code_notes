@@ -33,7 +33,7 @@ ApplyEvents::from_cmd_batch
                     continue;
                 }
             };
-            if cf == CF_LOCK {
+----if cf == CF_LOCK {
                 match cmd_type {
                     CmdType::Put => {
                         match Lock::parse(&value).map_err(|err| {
@@ -56,19 +56,19 @@ ApplyEvents::from_cmd_batch
                 }
                 continue;
             }
-            let item = ApplyEvent {
+----let item = ApplyEvent {
                 key,
                 value,
                 cf,
                 cmd_type,
             };
-            if !item.should_record() {
+----if !item.should_record() {
                 SKIP_KV_COUNTER.inc();
                 continue;
             }
             result.push(item);
-        }
-        Self {
+--}
+--Self {
             events: result,
             region_id,
             region_resolved_ts: resolver.resolved_ts().into_inner(),
