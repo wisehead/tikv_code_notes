@@ -55,4 +55,6 @@ TikvServer::init_server
                 self.concurrency_manager.clone(),
                 BackupStreamResolver::V1(leadership_resolver),
             );            
+----backup_stream_worker.start(backup_stream_endpoint);
+----self.core.to_stop.push(backup_stream_worker);        
 ```
