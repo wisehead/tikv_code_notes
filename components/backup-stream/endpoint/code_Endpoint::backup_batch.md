@@ -12,16 +12,17 @@ Endpoint::backup_batch
             if kvs.as_ref().map(|x| x.is_empty()).unwrap_or(true) {
                 return;
             }
-            let kvs = kvs.unwrap();
+----let kvs = kvs.unwrap();
 
             HANDLE_EVENT_DURATION_HISTOGRAM
                 .with_label_values(&["to_stream_event"])
                 .observe(sw.lap().as_secs_f64());
-            let kv_count = kvs.len();
-            let total_size = kvs.size();
+----let kv_count = kvs.len();
+----let total_size = kvs.size();
             metrics::HEAP_MEMORY
                 .add(total_size as _);
-            utils::handle_on_event_result(&sched, router.on_events(kvs).await);
+----utils::handle_on_event_result(&sched, router.on_events(kvs).await);
+------Router::on_events
             metrics::HEAP_MEMORY
                 .sub(total_size as _);
             let time_cost = sw.lap().as_secs_f64();
