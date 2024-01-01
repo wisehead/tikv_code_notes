@@ -15,4 +15,8 @@ TikvServer::init_server
   // Create backup stream.
 ----let mut backup_stream_worker = Box::new(LazyWorker::new("backup-stream"));
 ----let backup_stream_scheduler = backup_stream_worker.scheduler();
+    // Register backup-stream observer.
+----let backup_stream_ob = BackupStreamObserver::new(backup_stream_scheduler.clone());
+----backup_stream_ob.register_to(self.coprocessor_host.as_mut().unwrap());
+----
 ```
